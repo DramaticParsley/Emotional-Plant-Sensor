@@ -8,8 +8,6 @@ const char* password = "";     // The password of the Wi-Fi network
 
 const String localApiEndpoint  = "http://backend_url/soilmoisture";
 const String httpVariableValue  = "value=";
-#define sleepDuration 3600 //seconds
-
 
 HTTPClient http;
 WiFiClient client;
@@ -18,7 +16,10 @@ void setup() {
   setupLogger(LOGGER_CHANNEL);
   connectWifi(ssid, password);
   makeSensorHttpCall();
-  ESP.deepSleep(sleepDuration * 1000000);
+  Serial.println("!!!Going to sleep for seconds = " );
+  Serial.println(3600);
+  ESP.deepSleep(3600e6);
+  Serial.println("Does it do anything after deep sleep");
 }
 
 
@@ -28,6 +29,7 @@ void loop() {
 void setupLogger(int loggerChannel) {
   Serial.begin(115200);         // Start the Serial communication to send messages to the computer
   Serial.println('\n');
+  while(!Serial) { }
 }
 
 void connectWifi(String user, String pass) {
@@ -65,5 +67,7 @@ void makeSensorHttpCall() {
     Serial.println(payload);
   }
   http.end();
+  client.stop();
   Serial.println("Finished making the HTTP Call");
+
 }
