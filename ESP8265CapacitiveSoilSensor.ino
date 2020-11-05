@@ -8,7 +8,7 @@ const char* password = "";     // The password of the Wi-Fi network
 
 const String localApiEndpoint  = "http://backend_url/soilmoisture";
 const String httpVariableValue  = "value=";
-#define sleepDuration 60 //seconds
+#define sleepDuration 7200 //seconds
 
 
 HTTPClient http;
